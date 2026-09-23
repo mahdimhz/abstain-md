@@ -18,7 +18,7 @@ The comparison called **retrieval-only proxy** simply answers whenever any passa
 
 ## Run locally
 
-The tested setup is Python 3.12 on an x86-64 CPU with AVX2, required by the selected quantized ONNX export. On Windows PowerShell:
+The directly tested setup is Python 3.12 on an x86-64 CPU with AVX2, required by the selected quantized ONNX export. A Linux Xeon user also reproduced the pinned result with Python 3.11.15. **Install from `requirements.txt`: ONNX Runtime 1.30.0 is part of the reproducibility contract.** On Windows PowerShell:
 
 ```powershell
 python -m venv .venv
@@ -42,12 +42,12 @@ The three non-synthetic passage records in `evidence.json` were paraphrased and 
 
 On the **recorded development host** (Intel Core i7-9750H, Windows 11, ONNX Runtime 1.30.0), the policy matched the authored fixture action in **12 of 13 cases**; the retrieval-only proxy matched **3 of 13**. These designed engineering fixtures are **not evaluation data**: neither fraction is clinical accuracy or an unbiased comparison. The saved [model trace](results/model_run.json) includes that host's environment and the model's outputs.
 
-The mixed-passage case is **host-sensitive**. On the development machine, the model returned entailment **0.6486** and contradiction **0.3038**, so the policy answered incorrectly. On a second x86-64 host, the user reported entailment **0.4733** and contradiction **0.4804**; the top-two difference fell below the 0.15 ambiguity rule, so the policy abstained and their overall fixture agreement became **13 of 13**. The second host's CPU, OS, and ONNX Runtime version have not yet been supplied. The int8 ONNX export is a plausible source of variation, but the cause is **not confirmed**. This is a concrete example of a model-inference choice moving an action, not a stable benchmark result. See [cross-host reproduction notes](results/reproduction_notes.md).
+The mixed-passage case is **runtime-version-sensitive**. On the Windows development host with pinned ONNX Runtime **1.30.0**, entailment was **0.6486** and contradiction **0.3038**, so the policy answered incorrectly. The user first ran the same pinned export on a Linux Xeon with **1.25.0** and obtained **0.4733 / 0.4804**, causing abstention. They then changed only ONNX Runtime to **1.30.0** on that Linux host and obtained **0.6486 / 0.3038**, matching Windows to four decimal places and restoring the answer. Their controlled rerun isolates the reported divergence to the runtime version; it does not prove universal numerical identity across hosts. See [runtime-version reproduction notes](results/reproduction_notes.md).
 
 The development-host failure is why passage granularity and independent clinical review matter. It also shows why an entailment label cannot be treated as proof of safety. The current rule tags are supplied by fixtures, so escalation is not evidence of a working symptom parser. No probabilities are calibrated, no Estimated Calibration Index is computed, and no result supports deployment. The next research step is clinician-adjudicated claim/evidence labels, a separate development set for decision thresholds, and held-out source and wording tests.
 
 ## Reproduce the reported result
 
-Run `python abstain_md.py --all --json` in the environment above and compare your **case decisions and environment** with `results/model_run.json`; exact model scores and even a decision may differ across hosts. The JSON includes the pinned model revision, host details, and `scores_are_calibrated: false`. Run the unit tests to check retrieval, provenance blocking, conflict detection, action precedence, and the JSON interface.
+Run `python abstain_md.py --all --json` after installing the pinned dependencies and compare your **case decisions and environment** with `results/model_run.json`. The JSON includes the pinned model revision, host details, and `scores_are_calibrated: false`. A different ONNX Runtime version can change both scores and actions, as the [controlled rerun](results/reproduction_notes.md) shows. Run the unit tests to check retrieval, provenance blocking, conflict detection, action precedence, and the JSON interface.
 
 The repository contains no applicant documents, identity files, patient records, model weights, or API credentials.
