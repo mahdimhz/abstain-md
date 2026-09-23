@@ -1,6 +1,17 @@
 {
   "model": "cross-encoder/nli-MiniLM2-L6-H768",
   "revision": "b95119ce93d3e065de6214e38cd4a97b0f2f2c6d",
+  "environment": {
+    "cpu_model": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+    "os": "Windows",
+    "os_release": "11",
+    "os_version": "10.0.26200",
+    "architecture": "AMD64",
+    "python": "3.12.14",
+    "onnxruntime": "1.30.0",
+    "execution_provider": "CPUExecutionProvider",
+    "model_export": "onnx/model_quint8_avx2.onnx"
+  },
   "scores_are_calibrated": false,
   "results": [
     {

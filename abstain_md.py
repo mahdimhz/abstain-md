@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import platform
 import re
 import sys
 from pathlib import Path
@@ -146,6 +147,42 @@ def print_result(result: dict) -> None:
                   f"status={record['status']}")
 
 
+def runtime_environment() -> dict[str, str]:
+    """Record comparison-relevant host details without a user or host name."""
+    import onnxruntime
+
+    cpu = platform.processor() or "unknown"
+    if platform.system() == "Windows":
+        try:
+            import winreg
+
+            key_path = r"HARDWARE\DESCRIPTION\System\CentralProcessor\0"
+            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path) as key:
+                cpu = winreg.QueryValueEx(key, "ProcessorNameString")[0].strip()
+        except OSError:
+            pass
+    elif platform.system() == "Linux":
+        try:
+            with open("/proc/cpuinfo", encoding="utf-8") as file:
+                for line in file:
+                    if line.startswith("model name"):
+                        cpu = line.split(":", 1)[1].strip()
+                        break
+        except OSError:
+            pass
+    return {
+        "cpu_model": cpu,
+        "os": platform.system(),
+        "os_release": platform.release(),
+        "os_version": platform.version(),
+        "architecture": platform.machine(),
+        "python": platform.python_version(),
+        "onnxruntime": onnxruntime.__version__,
+        "execution_provider": "CPUExecutionProvider",
+        "model_export": "onnx/model_quint8_avx2.onnx",
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Synthetic model-backed evidence audit; not medical advice")
@@ -171,6 +208,7 @@ def main(argv: list[str] | None = None) -> int:
     results = [evaluate_case(case, evidence, model) for case in cases]
     if args.json:
         payload = json.dumps({"model": MODEL_ID, "revision": MODEL_REVISION,
+                              "environment": runtime_environment(),
                               "scores_are_calibrated": False, "results": results}, indent=2)
         if args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)

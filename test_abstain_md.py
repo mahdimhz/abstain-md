@@ -69,6 +69,9 @@ class PipelineTests(unittest.TestCase):
                 self.assertEqual(main(["--case", "supported_antibiotics", "--json"]), 0)
         payload = json.loads(output.getvalue())
         self.assertFalse(payload["scores_are_calibrated"])
+        self.assertEqual(payload["environment"]["execution_provider"], "CPUExecutionProvider")
+        self.assertIn("cpu_model", payload["environment"])
+        self.assertIn("onnxruntime", payload["environment"])
         self.assertEqual(payload["results"][0]["case_id"], "supported_antibiotics")
         self.assertEqual(payload["results"][0]["action"], "answer")
 
