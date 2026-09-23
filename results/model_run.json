@@ -1,0 +1,611 @@
+{
+  "model": "cross-encoder/nli-MiniLM2-L6-H768",
+  "revision": "b95119ce93d3e065de6214e38cd4a97b0f2f2c6d",
+  "scores_are_calibrated": false,
+  "results": [
+    {
+      "case_id": "supported_antibiotics",
+      "query": "Do antibiotics treat viral colds?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "Antibiotics do not treat viral colds."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "cdc_antibiotics_virus"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Antibiotics do not treat viral colds.",
+          "verdict": "supported",
+          "evidence": [
+            {
+              "source_id": "cdc_antibiotics_virus",
+              "source_url": "https://www.cdc.gov/antibiotic-use/about/",
+              "jurisdiction": "US",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2025-09-23",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 3,
+              "eligible": true,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.0034,
+                  "entailment": 0.9877,
+                  "neutral": 0.0088
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "answer",
+      "reason": "All controlled candidate claims have eligible NLI support",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "answer",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "contradicted_antibiotics",
+      "query": "Do antibiotics treat viral colds?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "Antibiotics treat viral colds."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "cdc_antibiotics_virus"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Antibiotics treat viral colds.",
+          "verdict": "contradicted",
+          "evidence": [
+            {
+              "source_id": "cdc_antibiotics_virus",
+              "source_url": "https://www.cdc.gov/antibiotic-use/about/",
+              "jurisdiction": "US",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2025-09-23",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 3,
+              "eligible": true,
+              "nli": {
+                "label": "contradiction",
+                "scores": {
+                  "contradiction": 0.9084,
+                  "entailment": 0.0614,
+                  "neutral": 0.0302
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "abstain",
+      "reason": "At least one candidate claim lacks consistent support",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "unsupported_timing",
+      "query": "When should antibiotics for a viral cold be taken?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "Take antibiotics at exactly 8 am every day."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "cdc_antibiotics_virus"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Take antibiotics at exactly 8 am every day.",
+          "verdict": "insufficient",
+          "evidence": [
+            {
+              "source_id": "cdc_antibiotics_virus",
+              "source_url": "https://www.cdc.gov/antibiotic-use/about/",
+              "jurisdiction": "US",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2025-09-23",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 3,
+              "eligible": true,
+              "nli": {
+                "label": "uncertain",
+                "scores": {
+                  "contradiction": 0.4912,
+                  "entailment": 0.0016,
+                  "neutral": 0.5072
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "abstain",
+      "reason": "At least one candidate claim lacks consistent support",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "missing_information",
+      "query": "Can I take a pain medicine with warfarin?",
+      "jurisdiction": "UK",
+      "candidate_claims": [
+        "Some medicines may not mix well with warfarin."
+      ],
+      "missing_required_fields": [
+        "Which medicine is the patient asking about?"
+      ],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "nhs_warfarin_interactions"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Some medicines may not mix well with warfarin.",
+          "verdict": "supported",
+          "evidence": [
+            {
+              "source_id": "nhs_warfarin_interactions",
+              "source_url": "https://www.nhs.uk/medicines/warfarin/",
+              "jurisdiction": "UK",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2026-02-24",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 2,
+              "eligible": true,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.0009,
+                  "entailment": 0.9894,
+                  "neutral": 0.0098
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "clarify",
+      "reason": "Required information is missing in the synthetic case",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "clarify",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "chest_red_flag",
+      "query": "Chest pain with shortness of breath",
+      "jurisdiction": "UK",
+      "candidate_claims": [
+        "Chest pain with shortness of breath needs immediate medical help."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [
+        "chest_pain",
+        "shortness_of_breath"
+      ],
+      "retrieved_source_ids": [
+        "nhs_chest_pain"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Chest pain with shortness of breath needs immediate medical help.",
+          "verdict": "supported",
+          "evidence": [
+            {
+              "source_id": "nhs_chest_pain",
+              "source_url": "https://www.nhs.uk/symptoms/chest-pain/",
+              "jurisdiction": "UK",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2023-08-08",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 4,
+              "eligible": true,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.001,
+                  "entailment": 0.985,
+                  "neutral": 0.014
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "escalate",
+      "reason": "Synthetic emergency red-flag rule fired",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "escalate",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "warfarin_interaction_flag",
+      "query": "Can ibuprofen be taken with warfarin?",
+      "jurisdiction": "UK",
+      "candidate_claims": [
+        "A person taking warfarin should speak to a doctor before taking ibuprofen."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [
+        "warfarin",
+        "ibuprofen_question"
+      ],
+      "retrieved_source_ids": [
+        "nhs_warfarin_interactions"
+      ],
+      "claim_checks": [
+        {
+          "claim": "A person taking warfarin should speak to a doctor before taking ibuprofen.",
+          "verdict": "supported",
+          "evidence": [
+            {
+              "source_id": "nhs_warfarin_interactions",
+              "source_url": "https://www.nhs.uk/medicines/warfarin/",
+              "jurisdiction": "UK",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2026-02-24",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 2,
+              "eligible": true,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.0025,
+                  "entailment": 0.9813,
+                  "neutral": 0.0162
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "escalate",
+      "reason": "Synthetic medication-review rule fired",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "escalate",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "jurisdiction_mismatch",
+      "query": "Can ibuprofen be taken with warfarin?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "A person taking warfarin should speak to a doctor before taking ibuprofen."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "nhs_warfarin_interactions"
+      ],
+      "claim_checks": [
+        {
+          "claim": "A person taking warfarin should speak to a doctor before taking ibuprofen.",
+          "verdict": "insufficient",
+          "evidence": [
+            {
+              "source_id": "nhs_warfarin_interactions",
+              "source_url": "https://www.nhs.uk/medicines/warfarin/",
+              "jurisdiction": "UK",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2026-02-24",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 2,
+              "eligible": false,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.0025,
+                  "entailment": 0.9813,
+                  "neutral": 0.0162
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "abstain",
+      "reason": "Retrieved source failed status or jurisdiction check",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "simulated_stale_source",
+      "query": "Do antibiotics treat viral colds?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "Antibiotics do not treat viral colds."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "cdc_antibiotics_virus"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Antibiotics do not treat viral colds.",
+          "verdict": "insufficient",
+          "evidence": [
+            {
+              "source_id": "cdc_antibiotics_virus",
+              "source_url": "https://www.cdc.gov/antibiotic-use/about/",
+              "jurisdiction": "US",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2025-09-23",
+              "status": "stale_fixture",
+              "synthetic_source": false,
+              "retrieval_overlap": 3,
+              "eligible": false,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.0034,
+                  "entailment": 0.9877,
+                  "neutral": 0.0088
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "abstain",
+      "reason": "Retrieved source failed status or jurisdiction check",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "synthetic_conflict",
+      "query": "Do antibiotics treat viral colds?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "Antibiotics do not treat viral colds."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "synthetic_conflict",
+        "cdc_antibiotics_virus"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Antibiotics do not treat viral colds.",
+          "verdict": "conflict",
+          "evidence": [
+            {
+              "source_id": "synthetic_conflict",
+              "source_url": null,
+              "jurisdiction": "US",
+              "snapshot_date": "2026-09-23",
+              "source_date": null,
+              "status": "approved",
+              "synthetic_source": true,
+              "retrieval_overlap": 4,
+              "eligible": true,
+              "nli": {
+                "label": "contradiction",
+                "scores": {
+                  "contradiction": 0.9977,
+                  "entailment": 0.0006,
+                  "neutral": 0.0017
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            },
+            {
+              "source_id": "cdc_antibiotics_virus",
+              "source_url": "https://www.cdc.gov/antibiotic-use/about/",
+              "jurisdiction": "US",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2025-09-23",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 3,
+              "eligible": true,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.0034,
+                  "entailment": 0.9877,
+                  "neutral": 0.0088
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "abstain",
+      "reason": "At least one candidate claim lacks consistent support",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "mixed_passage_nli_failure",
+      "query": "Do antibiotics treat viral colds?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "Antibiotics treat viral colds."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "synthetic_mixed_passage"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Antibiotics treat viral colds.",
+          "verdict": "supported",
+          "evidence": [
+            {
+              "source_id": "synthetic_mixed_passage",
+              "source_url": null,
+              "jurisdiction": "US",
+              "snapshot_date": "2026-09-23",
+              "source_date": null,
+              "status": "approved",
+              "synthetic_source": true,
+              "retrieval_overlap": 3,
+              "eligible": true,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.3038,
+                  "entailment": 0.6486,
+                  "neutral": 0.0476
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "answer",
+      "reason": "All controlled candidate claims have eligible NLI support",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": false
+    },
+    {
+      "case_id": "no_retrieval",
+      "query": "How do I repair a bicycle tyre?",
+      "jurisdiction": "US",
+      "candidate_claims": [
+        "A bicycle tyre can be patched."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [],
+      "claim_checks": [
+        {
+          "claim": "A bicycle tyre can be patched.",
+          "verdict": "insufficient",
+          "evidence": []
+        }
+      ],
+      "action": "abstain",
+      "reason": "No relevant local evidence passage retrieved",
+      "retrieval_only_proxy_action": "abstain",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "supported_warfarin_information",
+      "query": "Does ibuprofen interact with warfarin?",
+      "jurisdiction": "UK",
+      "candidate_claims": [
+        "Some medicines, including ibuprofen, may not mix well with warfarin."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "nhs_warfarin_interactions"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Some medicines, including ibuprofen, may not mix well with warfarin.",
+          "verdict": "supported",
+          "evidence": [
+            {
+              "source_id": "nhs_warfarin_interactions",
+              "source_url": "https://www.nhs.uk/medicines/warfarin/",
+              "jurisdiction": "UK",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2026-02-24",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 2,
+              "eligible": true,
+              "nli": {
+                "label": "entailment",
+                "scores": {
+                  "contradiction": 0.0008,
+                  "entailment": 0.9752,
+                  "neutral": 0.024
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "answer",
+      "reason": "All controlled candidate claims have eligible NLI support",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "answer",
+      "matches_authored_expectation": true
+    },
+    {
+      "case_id": "unsupported_chest_claim",
+      "query": "Chest pain and shortness of breath",
+      "jurisdiction": "UK",
+      "candidate_claims": [
+        "Chest pain always means a heart attack."
+      ],
+      "missing_required_fields": [],
+      "fixture_tags": [],
+      "retrieved_source_ids": [
+        "nhs_chest_pain"
+      ],
+      "claim_checks": [
+        {
+          "claim": "Chest pain always means a heart attack.",
+          "verdict": "insufficient",
+          "evidence": [
+            {
+              "source_id": "nhs_chest_pain",
+              "source_url": "https://www.nhs.uk/symptoms/chest-pain/",
+              "jurisdiction": "UK",
+              "snapshot_date": "2026-09-23",
+              "source_date": "2023-08-08",
+              "status": "approved",
+              "synthetic_source": false,
+              "retrieval_overlap": 4,
+              "eligible": true,
+              "nli": {
+                "label": "neutral",
+                "scores": {
+                  "contradiction": 0.0994,
+                  "entailment": 0.0021,
+                  "neutral": 0.8985
+                },
+                "reason": "uncalibrated NLI output"
+              }
+            }
+          ]
+        }
+      ],
+      "action": "abstain",
+      "reason": "At least one candidate claim lacks consistent support",
+      "retrieval_only_proxy_action": "answer",
+      "authored_fixture_expectation": "abstain",
+      "matches_authored_expectation": true
+    }
+  ]
+}

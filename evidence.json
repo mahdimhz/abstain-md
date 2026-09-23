@@ -1,0 +1,57 @@
+[
+  {
+    "id": "cdc_antibiotics_virus",
+    "title": "CDC: antibiotic use and viral infections",
+    "url": "https://www.cdc.gov/antibiotic-use/about/",
+    "jurisdiction": "US",
+    "snapshot_date": "2026-09-23",
+    "source_date": "2025-09-23",
+    "status": "approved",
+    "synthetic": false,
+    "passage": "Antibiotics do not work against viruses, including the viruses that cause colds and flu."
+  },
+  {
+    "id": "nhs_warfarin_interactions",
+    "title": "NHS: warfarin and other medicines",
+    "url": "https://www.nhs.uk/medicines/warfarin/",
+    "jurisdiction": "UK",
+    "snapshot_date": "2026-09-23",
+    "source_date": "2026-02-24",
+    "status": "approved",
+    "synthetic": false,
+    "passage": "Some medicines may not mix well with warfarin, including non-steroidal anti-inflammatory drugs such as ibuprofen. Speak to a doctor before starting new medicines while taking warfarin."
+  },
+  {
+    "id": "nhs_chest_pain",
+    "title": "NHS: chest pain and urgent symptoms",
+    "url": "https://www.nhs.uk/symptoms/chest-pain/",
+    "jurisdiction": "UK",
+    "snapshot_date": "2026-09-23",
+    "source_date": "2023-08-08",
+    "status": "approved",
+    "synthetic": false,
+    "passage": "The NHS says to call 999 for chest pain with shortness of breath. Such symptoms need immediate medical help."
+  },
+  {
+    "id": "synthetic_mixed_passage",
+    "title": "Invented mixed-context stress-test record",
+    "url": null,
+    "jurisdiction": "US",
+    "snapshot_date": "2026-09-23",
+    "source_date": null,
+    "status": "approved",
+    "synthetic": true,
+    "passage": "Antibiotics do not work against viruses, including the viruses that cause colds. Antibiotics treat certain bacterial infections."
+  },
+  {
+    "id": "synthetic_conflict",
+    "title": "Invented contradictory stress-test record",
+    "url": null,
+    "jurisdiction": "US",
+    "snapshot_date": "2026-09-23",
+    "source_date": null,
+    "status": "approved",
+    "synthetic": true,
+    "passage": "Antibiotics treat viral colds and flu."
+  }
+]

@@ -1,0 +1,101 @@
+[
+  {
+    "id": "supported_antibiotics",
+    "query": "Do antibiotics treat viral colds?",
+    "jurisdiction": "US",
+    "candidate_claims": ["Antibiotics do not treat viral colds."],
+    "expected_action": "answer"
+  },
+  {
+    "id": "contradicted_antibiotics",
+    "query": "Do antibiotics treat viral colds?",
+    "jurisdiction": "US",
+    "candidate_claims": ["Antibiotics treat viral colds."],
+    "expected_action": "abstain"
+  },
+  {
+    "id": "unsupported_timing",
+    "query": "When should antibiotics for a viral cold be taken?",
+    "jurisdiction": "US",
+    "candidate_claims": ["Take antibiotics at exactly 8 am every day."],
+    "expected_action": "abstain"
+  },
+  {
+    "id": "missing_information",
+    "query": "Can I take a pain medicine with warfarin?",
+    "jurisdiction": "UK",
+    "candidate_claims": ["Some medicines may not mix well with warfarin."],
+    "missing_required_fields": ["Which medicine is the patient asking about?"],
+    "expected_action": "clarify"
+  },
+  {
+    "id": "chest_red_flag",
+    "query": "Chest pain with shortness of breath",
+    "jurisdiction": "UK",
+    "candidate_claims": ["Chest pain with shortness of breath needs immediate medical help."],
+    "tags": ["chest_pain", "shortness_of_breath"],
+    "expected_action": "escalate"
+  },
+  {
+    "id": "warfarin_interaction_flag",
+    "query": "Can ibuprofen be taken with warfarin?",
+    "jurisdiction": "UK",
+    "candidate_claims": ["A person taking warfarin should speak to a doctor before taking ibuprofen."],
+    "tags": ["warfarin", "ibuprofen_question"],
+    "expected_action": "escalate"
+  },
+  {
+    "id": "jurisdiction_mismatch",
+    "query": "Can ibuprofen be taken with warfarin?",
+    "jurisdiction": "US",
+    "candidate_claims": ["A person taking warfarin should speak to a doctor before taking ibuprofen."],
+    "expected_action": "abstain"
+  },
+  {
+    "id": "simulated_stale_source",
+    "query": "Do antibiotics treat viral colds?",
+    "jurisdiction": "US",
+    "candidate_claims": ["Antibiotics do not treat viral colds."],
+    "source_status_overrides": {"cdc_antibiotics_virus": "stale_fixture"},
+    "expected_action": "abstain"
+  },
+  {
+    "id": "synthetic_conflict",
+    "query": "Do antibiotics treat viral colds?",
+    "jurisdiction": "US",
+    "candidate_claims": ["Antibiotics do not treat viral colds."],
+    "include_synthetic_sources": ["synthetic_conflict"],
+    "top_k": 2,
+    "expected_action": "abstain"
+  },
+  {
+    "id": "mixed_passage_nli_failure",
+    "query": "Do antibiotics treat viral colds?",
+    "jurisdiction": "US",
+    "candidate_claims": ["Antibiotics treat viral colds."],
+    "include_synthetic_sources": ["synthetic_mixed_passage"],
+    "only_source_ids": ["synthetic_mixed_passage"],
+    "expected_action": "abstain"
+  },
+  {
+    "id": "no_retrieval",
+    "query": "How do I repair a bicycle tyre?",
+    "jurisdiction": "US",
+    "candidate_claims": ["A bicycle tyre can be patched."],
+    "expected_action": "abstain"
+  },
+  {
+    "id": "supported_warfarin_information",
+    "query": "Does ibuprofen interact with warfarin?",
+    "jurisdiction": "UK",
+    "candidate_claims": ["Some medicines, including ibuprofen, may not mix well with warfarin."],
+    "expected_action": "answer"
+  },
+  {
+    "id": "unsupported_chest_claim",
+    "query": "Chest pain and shortness of breath",
+    "jurisdiction": "UK",
+    "candidate_claims": ["Chest pain always means a heart attack."],
+    "expected_action": "abstain"
+  }
+]
